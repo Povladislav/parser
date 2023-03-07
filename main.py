@@ -1,12 +1,9 @@
-import os
+import uvicorn
 from fastapi import FastAPI
-import motor.motor_asyncio
+from routes.user import user
 
 app = FastAPI()
-client = motor.motor_asyncio.AsyncIOMotorClient(os.environ.get("DATABASE_URL"))
-db = client.college
-
-
-@app.get("/")
-def foo():
-    return ({"Working": 1})
+app.include_router(user)
+#
+# if __name__ == "__main__":
+#     uvicorn.run("parser.main:app", host="0.0.0.0", port=8000, reload=True)
