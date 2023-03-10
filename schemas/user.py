@@ -1,12 +1,11 @@
-def userEntity(item) -> dict:
+def clothEntity(item) -> dict:
     return {
         "id": str(item["_id"]),
+        "category": item["category"],
         "name": item["name"],
-        "email": item["email"],
-        "password": item["password"],
-
+        "price": item["price"],
     }
 
 
-def usersEntity(entity) -> list:
-    return [userEntity(item) for item in entity]
+def clothsEntity(entity) -> list:
+    return [clothEntity(item) for item in entity]

@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     MONGO_INITDB_ROOT_USERNAME: str
 
     class Config:
-        env_file = '.env'
+        env_file = ".env"
 
 
 settings = Settings()
