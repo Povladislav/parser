@@ -1,18 +1,16 @@
-from typing import List
-
 from fastapi import APIRouter, Depends
-
+from typing import Optional
 from configuration.db import db
-from models.cloth import Cloth
-from parsing_lamoda import parsing_through_pages_cloths, parsing_through_pages_boots
-from schemas.user import clothEntity, clothsEntity
+from parsing_lamoda import parsing_through_pages_boots
+from schemas.user import clothsEntity
+from pagination.pagination import Pagination
 
 user = APIRouter()
 
 
 @user.get("/")
-async def find_all_cloths():
-    cloths = await db.clothes.find().to_list(100)
+async def find_all_cloths(pagination: Pagination = Depends()):
+    cloths = await pagination.paginate()
     return clothsEntity(cloths)
 
 
