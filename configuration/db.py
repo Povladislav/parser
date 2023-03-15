@@ -9,3 +9,4 @@ load_dotenv()
 conn = motor.motor_asyncio.AsyncIOMotorClient(settings.DATABASE_URL)
 db = conn.college
 clothes = db.clothes
+streams = db.streams

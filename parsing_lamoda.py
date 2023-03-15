@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from db_management.db_commands import insert_cloth_into_db, insert_boots_into_db
+from db_management.db_commands import insert_boots_into_db, insert_cloth_into_db
 
 base_url = "https://www.lamoda.by"
 
@@ -48,10 +48,10 @@ async def parsing_through_pages_boots():
                 "span", class_="x-product-card-description__price-WEB8507_price_no_bold"
             ).text
             name = (
-                    item.find("div", class_="x-product-card-description__brand-name").text
-                    + item.find(
-                "div", class_="x-product-card-description__product-name"
-            ).text
+                item.find("div", class_="x-product-card-description__brand-name").text
+                + item.find(
+                    "div", class_="x-product-card-description__product-name"
+                ).text
             )
             cloth = {
                 "category": category,
@@ -90,10 +90,10 @@ async def parsing_through_pages_cloths():
                 "span", class_="x-product-card-description__price-WEB8507_price_no_bold"
             ).text
             name = (
-                    item.find("div", class_="x-product-card-description__brand-name").text
-                    + item.find(
-                "div", class_="x-product-card-description__product-name"
-            ).text
+                item.find("div", class_="x-product-card-description__brand-name").text
+                + item.find(
+                    "div", class_="x-product-card-description__product-name"
+                ).text
             )
             cloth = {
                 "category": category,

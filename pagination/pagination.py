@@ -9,6 +9,8 @@ class Pagination:
     async def paginate(self):
         list_items = []
         items_to_skip = (self.page - 1) * self.items_on_page
-        async for item in db.clothes.find().limit(self.items_on_page).skip(items_to_skip):
+        async for item in db.clothes.find().limit(self.items_on_page).skip(
+            items_to_skip
+        ):
             list_items.append(item)
         return list_items

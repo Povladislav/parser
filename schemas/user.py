@@ -9,3 +9,13 @@ def clothEntity(item) -> dict:
 
 def clothsEntity(entity) -> list:
     return [clothEntity(item) for item in entity]
+
+
+def streamEntity(item) -> dict:
+    return {
+        "id": str(item["_id"]),
+    }
+
+
+def streamsEntity(entity) -> list:
+    return [streamEntity(item) for item in entity]
