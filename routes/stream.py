@@ -10,7 +10,7 @@ from schemas.user import clothsEntity, streamsEntity
 
 stream = APIRouter(prefix="/stream")
 
-
+#1
 @stream.post("/create")
 async def create_streams():
     result = await parse_twitch()
