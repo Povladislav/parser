@@ -1,12 +1,10 @@
-from typing import Optional
-
 from fastapi import APIRouter, Depends
 
 from configuration.db import db
 from pagination.pagination import Pagination
-from parsing_lamoda import parsing_through_pages_boots
 from parsing_twitch import parse_twitch
-from schemas.entities import clothsEntity, streamsEntity
+from exceptions_controller.exep_controller import UnicornException
+from schemas.entities import streamsEntity
 
 stream = APIRouter(prefix="/stream")
 
@@ -20,6 +18,9 @@ async def create_streams():
 
 @stream.get("/get")
 async def find_streams(pagination: Pagination = Depends()):
+    if pagination.page < 0:
+        raise UnicornException(pagination.page)
+
     result = await pagination.paginate_streams()
     return streamsEntity(result)
 

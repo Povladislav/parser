@@ -1,18 +1,18 @@
-from typing import Optional
-
 from fastapi import APIRouter, Depends
 
 from configuration.db import db
 from pagination.pagination import Pagination
 from parsing_lamoda import parsing_through_pages_boots, parsing_through_pages_cloths
-from parsing_twitch import parse_twitch
-from schemas.entities import clothsEntity, streamsEntity
+from schemas.entities import clothsEntity
+from exceptions_controller.exep_controller import UnicornException
 
 cloth = APIRouter(prefix="/cloth")
 
 
 @cloth.get("/get")
 async def find_all_cloths(pagination: Pagination = Depends()):
+    if pagination.page < 0:
+        raise UnicornException(pagination.page)
     cloths = await pagination.paginate_cloths()
     return clothsEntity(cloths)
 
