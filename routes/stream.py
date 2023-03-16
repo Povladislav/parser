@@ -6,20 +6,21 @@ from configuration.db import db
 from pagination.pagination import Pagination
 from parsing_lamoda import parsing_through_pages_boots
 from parsing_twitch import parse_twitch
-from schemas.user import clothsEntity, streamsEntity
+from schemas.entities import clothsEntity, streamsEntity
 
 stream = APIRouter(prefix="/stream")
 
-#1
+
+# 1
 @stream.post("/create")
 async def create_streams():
-    result = await parse_twitch()
+    await parse_twitch()
     return {"success": True}
 
 
 @stream.get("/get")
-async def find_streams():
-    result = await db.streams.find().to_list(10)
+async def find_streams(pagination: Pagination = Depends()):
+    result = await pagination.paginate_streams()
     return streamsEntity(result)
 
 

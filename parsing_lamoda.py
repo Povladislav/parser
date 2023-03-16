@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from db_management.db_commands import insert_boots_into_db, insert_cloth_into_db
+from models.cloth import Cloth
 
 base_url = "https://www.lamoda.by"
 
@@ -58,7 +59,8 @@ async def parsing_through_pages_boots():
                 "name": name,
                 "price": price,
             }
-            await insert_boots_into_db(cloth)
+            validated_object = dict(Cloth.parse_obj(cloth))
+            await insert_boots_into_db(validated_object)
         page += 1
         custom_url = build_custom_url_for_cloths(page)
         response_from_first_category = requests.get(custom_url).text
