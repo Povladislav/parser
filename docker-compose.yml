@@ -43,7 +43,20 @@ services:
       - "27017:27017"
     volumes:
       - pg_data:/data/db
-
+  consumer:
+    build:
+      context: consumer
+      dockerfile: Dockerfile
+    command: uvicorn consumer.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/code
+    environment:
+      - KAFKA_HOST=kafka
+      - KAFKA_PORT=9092
+      - KAFKA_TOPICS=jobs
+    depends_on:
+      - kafka
+      - zookeeper
 volumes:
   pg_data:
     driver: local

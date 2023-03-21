@@ -27,25 +27,24 @@ async def unicorn_exception_handler(request: Request, exc: UnicornException):
         content={"message": f"Oops! {exc.page} is not available! User positive page number!"})
 
 
-@app.on_event("startup")
-async def startup_event():
-    await consumer.start()
-    asyncio.create_task(consume())
-
-
-@app.on_event("startup")
-@repeat_every(seconds=100 * 100)
-async def create_task():
-    message = {
-        "parse_lamoda": True,
-        "parse_twitch": True
-    }
-    await send(message)
-
-
-@app.on_event("shutdown")
-async def startup_event():
-    await consumer.stop()
+# @app.on_event("startup")
+# async def startup_event():
+#     await consumer.start()
+#
+#
+# @app.on_event("startup")
+# @repeat_every(seconds=100 * 100)
+# async def create_task():
+#     message = {
+#         "parse_lamoda": True,
+#         "parse_twitch": True
+#     }
+#     await send(message)
+#
+#
+# @app.on_event("shutdown")
+# async def startup_event():
+#     await consumer.stop()
 
 # if __name__ == "__main__":
 #     uvicorn.run("parser.main:app", host="0.0.0.0", port=8000, reload=True)
