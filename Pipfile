@@ -17,6 +17,8 @@ fastapi-pagination = "*"
 aiokafka = "*"
 asyncio = "*"
 aiohttp = "*"
+kafka-python = "*"
+fastapi-utils = "*"
 
 [dev-packages]
 
