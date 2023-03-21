@@ -25,7 +25,6 @@ async def create_cloths():
     # loop = asyncio.new_event_loop()
     starttime = time.time()
     await gather_data()
-    # await parsing_through_pages_boots()
     endtime = time.time()
     total = endtime - starttime
     return {"success": total}

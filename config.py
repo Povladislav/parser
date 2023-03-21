@@ -1,4 +1,5 @@
 from pydantic import BaseSettings
+import asyncio
 
 
 class Settings(BaseSettings):

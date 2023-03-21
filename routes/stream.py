@@ -1,3 +1,6 @@
+import json
+
+from aiokafka import AIOKafkaProducer, AIOKafkaConsumer
 from fastapi import APIRouter, Depends
 
 from configuration.db import db
@@ -9,7 +12,6 @@ from schemas.entities import streamsEntity
 stream = APIRouter(prefix="/stream")
 
 
-# 1
 @stream.post("/create")
 async def create_streams():
     await parse_twitch()
