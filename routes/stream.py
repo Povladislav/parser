@@ -1,12 +1,12 @@
 import json
 
-from aiokafka import AIOKafkaProducer, AIOKafkaConsumer
+from aiokafka import AIOKafkaConsumer, AIOKafkaProducer
 from fastapi import APIRouter, Depends
 
 from configuration.db import db
+from exceptions_controller.exep_controller import UnicornException
 from pagination.pagination import Pagination
 from parsing_twitch import parse_twitch
-from exceptions_controller.exep_controller import UnicornException
 from schemas.entities import streamsEntity
 
 stream = APIRouter(prefix="/stream")

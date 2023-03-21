@@ -1,7 +1,9 @@
-from fastapi import FastAPI
-from routes.kafka import consume, consumer, send
-from fastapi_utils.tasks import repeat_every
 import asyncio
+
+from fastapi import FastAPI
+from fastapi_utils.tasks import repeat_every
+
+from routes.kafka import consume, consumer, send
 
 app = FastAPI()
 
@@ -15,10 +17,7 @@ async def startup_event():
 @app.on_event("startup")
 @repeat_every(seconds=100 * 100)
 async def create_task():
-    message = {
-        "parse_lamoda": True,
-        "parse_twitch": True
-    }
+    message = {"parse_lamoda": True, "parse_twitch": True}
     await send(message)
 
 

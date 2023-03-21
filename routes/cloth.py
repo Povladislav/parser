@@ -4,10 +4,10 @@ import time
 from fastapi import APIRouter, Depends
 
 from configuration.db import db
+from exceptions_controller.exep_controller import UnicornException
 from pagination.pagination import Pagination
 from parsing_lamoda import gather_data
 from schemas.entities import clothsEntity
-from exceptions_controller.exep_controller import UnicornException
 
 cloth = APIRouter(prefix="/cloth")
 

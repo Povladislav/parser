@@ -1,17 +1,16 @@
 import asyncio
+import json
 
 import uvicorn
-import json
+from aiokafka import AIOKafkaConsumer, AIOKafkaProducer
+from fastapi import APIRouter, FastAPI, Request
 from fastapi.responses import JSONResponse
-from fastapi import FastAPI, Request, APIRouter
-from exceptions_controller.exep_controller import UnicornException
-from routes.cloth import cloth
-from routes.stream import stream
-from routes.kafka import route
-from routes.kafka import consume, consumer, send
 from fastapi_utils.tasks import repeat_every
 
-from aiokafka import AIOKafkaProducer, AIOKafkaConsumer
+from exceptions_controller.exep_controller import UnicornException
+from routes.cloth import cloth
+from routes.kafka import consume, consumer, route, send
+from routes.stream import stream
 
 app = FastAPI()
 app.include_router(cloth)
@@ -24,7 +23,10 @@ app.include_router(route)
 async def unicorn_exception_handler(request: Request, exc: UnicornException):
     return JSONResponse(
         status_code=404,
-        content={"message": f"Oops! {exc.page} is not available! User positive page number!"})
+        content={
+            "message": f"Oops! {exc.page} is not available! User positive page number!"
+        },
+    )
 
 
 # @app.on_event("startup")

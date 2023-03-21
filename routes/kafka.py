@@ -1,7 +1,9 @@
-from fastapi import APIRouter
-from aiokafka import AIOKafkaProducer, AIOKafkaConsumer
-import json
 import asyncio
+import json
+
+from aiokafka import AIOKafkaConsumer, AIOKafkaProducer
+from fastapi import APIRouter
+
 from parsing_lamoda import gather_data
 from parsing_twitch import parse_twitch
 
@@ -11,13 +13,13 @@ loop = asyncio.get_event_loop()
 consumer = AIOKafkaConsumer("jobs", loop=loop, bootstrap_servers="kafka:9092")
 
 
-@route.get('/create_task')
+@route.get("/create_task")
 async def send(task: dict):
     producer = AIOKafkaProducer(loop=loop, bootstrap_servers="kafka:9092")
     await producer.start()
     try:
-        print(f'Sending task...:')
-        value_json = json.dumps(task).encode('utf-8')
+        print(f"Sending task...:")
+        value_json = json.dumps(task).encode("utf-8")
         await producer.send_and_wait(topic="jobs", value=value_json)
     finally:
         await producer.stop()
