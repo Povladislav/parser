@@ -8,6 +8,15 @@ fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 motor = "*"
 pydantic = {extras = ["email"], version = "*"}
+beautifulsoup4 = "*"
+lxml = "*"
+requests = "*"
+black = "*"
+isort = "*"
+fastapi-pagination = "*"
+aiokafka = "*"
+asyncio = "*"
+aiohttp = "*"
 
 [dev-packages]
 
